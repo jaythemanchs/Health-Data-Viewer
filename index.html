@@ -4,11 +4,43 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Health Data Viewer</title>
-	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 
-<body>
-	<script src="index.js"></script>
+<body class="p-3">
+	<div class="modal fade" id="signin_model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="signin_model_label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="signin_model_label">Authorize your Google Account</h1>
+				</div>
+				<div class="modal-body">
+					Sign in with your Google Account and authorize access to Fitness and Measurement Data - Read Only.
+				</div>
+				<div class="modal-footer">
+					<button id="signin_button" class="btn btn-primary" type="button">
+						<span class="spinner-border spinner-border-sm" aria-hidden="true" hidden></span>
+						<span role="status">Sign In</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="load_frame"
+		class="w-100 h-100 justify-content-center align-items-center flex-column d-flex position-absolute top-0 start-0 bg-opacity-25 bg-body-tertiary">
+		<div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+		<strong role="status" class="pt-3 fs-3">Loading...</strong>
+	</div>
+
+	<script src="https://accounts.google.com/gsi/client"></script>
+	<script src="https://apis.google.com/js/api.js"></script>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/index.js"></script>
 </body>
 
 </html>
