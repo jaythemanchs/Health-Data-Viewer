@@ -1,0 +1,33 @@
+.radial-progress-bar {
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: inline-grid;
+    place-content: center;
+    position: relative;
+    container-type: size;
+
+    /* Creates the progress arc using a conic gradient */
+    background: conic-gradient(from -135deg, var(--color) calc(var(--value) * 0.75%),
+            transparent 0 calc(var(--value) * 0.75% + 0.75%), color-mix(in srgb, var(--color) 25%, transparent) 0 75%, transparent 0 );
+    transition: background 0.2s linear
+}
+
+.radial-progress-bar>i {
+    font-size: 40cqw;
+    position: relative;
+    top: -10%;
+    z-index: 2;
+    color: var(--color)
+}
+
+/* Inner masking element to create the "donut" hole */
+.radial-progress-bar::before {
+    content: "";
+    position: absolute;
+    inset: calc(3% + 3px);
+    /* Controls the thickness of the progress bar line */
+    border-radius: 50%;
+    background-color: rgba(var(--bs-secondary-bg-rgb), var(--bs-bg-opacity));
+    z-index: 1;
+}
