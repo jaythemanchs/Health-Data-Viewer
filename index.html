@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="./css/bootstrap-icons.min.css">
 </head>
 
-<body class="p-3 bg-body-secondary">
+<body class="bg-body-secondary">
 	<div class="modal fade" id="signin_model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 		aria-labelledby="signin_model_label" aria-hidden="true">
 		<div class="modal-dialog">
@@ -30,84 +30,114 @@
 		</div>
 	</div>
 
-	<div id="load_frame"
-		class="w-100 h-100 justify-content-center align-items-center flex-column d-flex position-absolute top-0 start-0 z-3 bg-opacity-75 bg-body-tertiary">
-		<div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-			<span class="visually-hidden">Loading...</span>
-		</div>
-		<strong role="status" class="pt-3 fs-3">Loading...</strong>
-	</div>
-
-	<div class="d-flex align-items-center justify-content-between mb-4">
-		<button class="btn rounded-circle p-2" id="next-day">
+	<div class="d-flex align-items-center p-3 mb-1 position-sticky top-0 z-4 bg-body-tertiary border-bottom">
+		<button class="btn rounded-circle p-2" id="previous_day_button" disabled>
 			<i class="bi bi-chevron-left"></i>
 		</button>
 
-		<h6 class="mb-0 text-center" id="date-header">Today</h6>
+		<input type="date" class="flex-grow-1 text-center border-0 bg-transparent fs-5" onfocus="this.showPicker()"
+			id="main_date_picker" required>
 
-		<button class="btn rounded-circle p-2" id="next-day">
+		<button class="btn rounded-circle p-2" id="next_day_button" disabled>
 			<i class="bi bi-chevron-right"></i>
 		</button>
-	</div>
 
-	<div id="steps_radial">
-		<div class="container text-center" style="height: 180px; margin-bottom: -16px;">
-			<div class="radial-progress-bar" style="--value: 75; --color: var(--bs-blue)" role="progressbar"
-				aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-				<i class="bi bi-person-walking"></i>
-			</div>
-		</div>
-
-		<div class="container text-center mb-4">
-			<h1 class="mb-0 fw-normal" style="font-size: 2.5rem;">3,384</h1>
-			<small class="text-secondary">Steps</small>
-		</div>
-	</div>
-
-	<div class="container px-2">
-		<div class="row row-cols-3 align" style="height: 65px; --bs-gutter-x: 0">
-			<div id="distance_radial" class="h-100">
-				<div class="container text-center" style="margin-bottom: -4px;">
-					<div class="radial-progress-bar" style="--value: 75; --color: var(--bs-yellow)" role="progressbar"
-						aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-						<i class="bi bi-rulers"></i>
+		<div class="dropdown">
+			<button class="btn rounded-circle p-2" id="settings" title="Filter" aria-label="Filter Dropdown"
+				data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+				<i class="bi bi-gear"></i>
+			</button>
+			<div class="dropdown-menu dropdown-form">
+				<form class="px-3 py-2 m-0" id="goal_form">
+					<div class="mb-3 row">
+						<label for="step_goal_input" class="col-sm-6 col-form-label">Steps (#)</label>
+						<div class="col-sm-6"><input type="number" class="form-control text-end" id="step_goal_input">
+						</div>
 					</div>
-				</div>
-
-				<div class="container text-center">
-					<h1 class="mb-0 fw-normal" style="font-size: 1.25rem;">1.5km</h1>
-					<small class="text-secondary">Distance</small>
-				</div>
-			</div>
-			<div id="activity_radial" class="h-100">
-				<div class="container text-center" style="margin-bottom: -4px;">
-					<div class="radial-progress-bar" style="--value: 75; --color: var(--bs-purple)" role="progressbar"
-						aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-						<i class="bi bi-stopwatch"></i>
+					<div class="mb-3 row">
+						<label for="distance_goal_input" class="col-sm-7 col-form-label">Distance (km)</label>
+						<div class="col-sm-5"><input type="number" step="0.01" class="form-control text-end"
+								id="distance_goal_input"></div>
 					</div>
-				</div>
-
-				<div class="container text-center">
-					<h1 class="mb-0 fw-normal" style="font-size: 1.25rem;">32 <small style="font-size: 1rem;">m</small>
-					</h1>
-					<small class="text-secondary">Activity</small>
-				</div>
-			</div>
-			<div id="pulse_radial" class="h-100">
-				<div class="container text-center" style="margin-bottom: -4px;">
-					<div class="radial-progress-bar" style="--value: 75; --color: var(--bs-green)" role="progressbar"
-						aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-						<i class="bi bi-activity"></i>
+					<div class="mb-3 row">
+						<label for="activity_goal_input" class="col-sm-7 col-form-label">Active Minutes</label>
+						<div class="col-sm-5"><input type="number" class="form-control text-end"
+								id="activity_goal_input"></div>
 					</div>
-				</div>
-
-				<div class="container text-center">
-					<h1 class="mb-0 fw-normal" style="font-size: 1.25rem;">80 – 92</h1>
-					<small class="text-secondary">Avg. Pulse</small>
-				</div>
+					<button type="submit" class="btn btn-primary">Save</button>
+				</form>
 			</div>
 		</div>
 	</div>
+
+	<article class="m-3 pt-4 px-1 pb-3 border bg-body-tertiary rounded rounded-4 position-relative">
+		<div id="load_frame"
+			class="w-100 h-100 justify-content-center align-items-center flex-column d-flex position-absolute z-3 bg-opacity-75 bg-body-tertiary rounded rounded-4 top-0 start-0">
+			<div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+			<strong role="status" class="pt-3 fs-3">Loading...</strong>
+		</div>
+
+		<div id="steps_radial">
+			<div class="container text-center" style="height: 180px; margin-bottom: -16px;">
+				<div class="radial-progress-bar" style="--value: 75; --color: var(--bs-blue)" role="progressbar"
+					aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+					<i class="bi bi-person-walking"></i>
+				</div>
+			</div>
+
+			<div class="container text-center mb-4">
+				<h1 class="mb-0 fw-normal" style="font-size: 2.5rem;">N/A</h1>
+				<small class="text-secondary">Steps</small>
+			</div>
+		</div>
+
+		<div class="container px-1">
+			<div class="row row-cols-3 gx-1 align">
+				<div id="distance_radial">
+					<div class="container text-center" style="margin-bottom: -4px; height: 65px;">
+						<div class="radial-progress-bar" style="--value: 75; --color: var(--bs-yellow)"
+							role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+							<i class="bi bi-rulers"></i>
+						</div>
+					</div>
+
+					<div class="container text-center">
+						<h1 class="mb-0 fw-normal" style="font-size: 1.25rem;">N/A</h1>
+						<small class="text-secondary">Distance</small>
+					</div>
+				</div>
+				<div id="activity_radial">
+					<div class="container text-center" style="margin-bottom: -4px; height: 65px;">
+						<div class="radial-progress-bar" style="--value: 75; --color: var(--bs-purple)"
+							role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+							<i class="bi bi-stopwatch"></i>
+						</div>
+					</div>
+
+					<div class="container text-center">
+						<h1 class="mb-0 fw-normal" style="font-size: 1.25rem;">N/A
+						</h1>
+						<small class="text-secondary">Activity</small>
+					</div>
+				</div>
+				<div id="pulse_radial">
+					<div class="container text-center" style="margin-bottom: -4px; height: 65px;">
+						<div class="radial-progress-bar" style="--value: 75; --color: var(--bs-green)"
+							role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+							<i class="bi bi-activity"></i>
+						</div>
+					</div>
+
+					<div class="container text-center">
+						<h1 class="mb-0 fw-normal" style="font-size: 1.25rem;">N/A</h1>
+						<small class="text-secondary">Pulse</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
 
 	<script src="https://accounts.google.com/gsi/client" defer></script>
 	<script src="https://apis.google.com/js/api.js"></script>
